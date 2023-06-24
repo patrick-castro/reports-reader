@@ -6,6 +6,8 @@ interface President {
   Index: number
 }
 
+const sampleXLSX = 'https://sheetjs.com/pres.xlsx'
+
 export default function Sample() {
   /* the component state is an array of presidents */
   const [pres, setPres] = useState<President[]>([])
@@ -13,9 +15,7 @@ export default function Sample() {
   /* Fetch and update the state once */
   useEffect(() => {
     ;(async () => {
-      const f = await (
-        await fetch('https://sheetjs.com/pres.xlsx')
-      ).arrayBuffer()
+      const f = await (await fetch(sampleXLSX)).arrayBuffer()
       const wb = read(f) // parse the array buffer
       const ws = wb.Sheets[wb.SheetNames[0]] // get the first worksheet
       const data = utils.sheet_to_json(ws) as President[] // generate objects
